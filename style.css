@@ -19,7 +19,7 @@ body {
 }
 
 header {
-    box-shadow: 5px 11px 20px 0px black;
+    box-shadow: 1px 6px 20px 0px white;
     backdrop-filter: blur(5px);
     /* background: #333; */
     color: #fff;
@@ -43,7 +43,7 @@ header p {
 }
 
 header a {
-    color: #4CAF50;
+    color: #00ff08;
     text-decoration: none;
     font-weight: bold;
 }
@@ -69,7 +69,7 @@ section {
 
 
 h2 {
-    color: #4CAF50;
+    color: black;
     border-bottom: 2px solid #ddd;
     padding-bottom: 10px;
 }
@@ -112,11 +112,11 @@ h2 {
     }
 }
 footer{
-    text-align: center;
+    /* text-align: center; */
     display: flex;
-    background-color: #afaeae;
     text-align: center;
     justify-content: center;
+    box-shadow: 1px -5px 19px 0px beige;
     height: 70px;
 }
 canvas {
@@ -127,5 +127,5 @@ canvas {
     overflow: hidden;
     width: 100vw;
     height: 100vh;
-    background-color: black;
+    background-color: #00a790;;
 }
