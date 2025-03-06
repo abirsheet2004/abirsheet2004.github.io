@@ -4,140 +4,4227 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abir Sheet Portfolio</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="script" href="script.js">
+    <title>Abir Sheet - Portfolio</title>
+    <meta name="theme-color" content="#1a1a1a">
+    <style>
+        :root {
+            /* Modern Gradient Color Scheme */
+            --primary-color: #4F46E5;    /* Deep Indigo */
+            --secondary-color: #10B981;  /* Emerald */
+            --accent-color: #8B5CF6;     /* Purple */
+            --gradient-1: linear-gradient(135deg, #4F46E5, #10B981);
+            --gradient-2: linear-gradient(45deg, #8B5CF6, #4F46E5);
+            
+            /* Background Colors */
+            --bg-dark: #0F172A;          /* Dark Blue */
+            --bg-card: rgba(30, 41, 59, 0.5);
+            
+            /* Text Colors */
+            --text-primary: #F8FAFC;     /* Light */
+            --text-secondary: #94A3B8;   /* Gray */
+            --text-accent: #10B981;      /* Emerald */
+            
+            /* Other Variables */
+            --transition: all 0.3s ease;
+            --card-border: 1px solid rgba(255, 255, 255, 0.1);
+            --card-radius: 15px;
+            --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
 
+        /* Rest of your CSS remains the same, just update the color values */
+
+        @media screen and (max-width: 768px) {
+            .about-content {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .profile-image-container,
+            .intro-content {
+                width: 100%;
+            }
+
+            .home-content h1 {
+                font-size: 2rem;
+            }
+
+            .developer-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        section {
+            overflow-x: hidden;
+        }
+
+        .intro-text {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .text-line {
+            display: block;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: typeWriter 0.5s ease forwards;
+        }
+
+        /* Delay each line */
+        .text-line:nth-child(1) { animation-delay: 0.2s; }
+        .text-line:nth-child(2) { animation-delay: 0.4s; }
+        .text-line:nth-child(3) { animation-delay: 0.6s; }
+        .text-line:nth-child(4) { animation-delay: 0.8s; }
+
+        /* Animation for fade in up effect */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Animation for typewriter effect */
+        @keyframes typeWriter {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Add scroll animation */
+        .animated-text.scroll-animate {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .animated-text.scroll-animate.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .profile-image-container {
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .profile-frame {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            border-radius: 20px;
+            overflow: hidden;
+            background: var(--bg-card);
+            box-shadow: var(--card-shadow);
+        }
+
+        .image-wrapper {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+        }
+
+        .profile-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            transition: transform 0.3s ease;
+        }
+
+        /* Hover effects */
+        .profile-frame:hover .profile-image {
+            transform: scale(1.05);
+        }
+
+        .orbit-circle {
+            position: absolute;
+            width: 120%;
+            height: 120%;
+            border: 2px solid var(--accent-color);
+            border-radius: 50%;
+            top: -10%;
+            left: -10%;
+            animation: rotate 10s linear infinite;
+            opacity: 0.3;
+        }
+
+        .glow-effect {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, var(--accent-color) 0%, transparent 70%);
+            opacity: 0.1;
+            mix-blend-mode: overlay;
+        }
+
+        /* Corner accents */
+        .corner-accent {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--accent-color);
+            opacity: 0.5;
+        }
+
+        .top-left {
+            top: 10px;
+            left: 10px;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .top-right {
+            top: 10px;
+            right: 10px;
+            border-left: none;
+            border-bottom: none;
+        }
+
+        .bottom-left {
+            bottom: 10px;
+            left: 10px;
+            border-right: none;
+            border-top: none;
+        }
+
+        .bottom-right {
+            bottom: 10px;
+            right: 10px;
+            border-left: none;
+            border-top: none;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Responsive adjustments */
+        @media screen and (max-width: 768px) {
+            .profile-frame {
+                width: 250px;
+                height: 250px;
+            }
+            
+            .profile-image-container {
+                padding: 10px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .profile-frame {
+                width: 200px;
+                height: 200px;
+            }
+        }
+
+        /* Add these new animations without modifying existing code */
+        .profile-frame {
+            position: relative;
+            overflow: visible !important;
+        }
+
+        /* Add shimmer effect */
+        .profile-frame::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(255, 255, 255, 0.1),
+                transparent
+            );
+            transform: rotate(45deg);
+            animation: shimmer 3s infinite;
+        }
+
+        /* Particle effects */
+        .animation-elements::before,
+        .animation-elements::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            filter: blur(2px);
+            opacity: 0;
+            animation: particleFloat 4s infinite;
+        }
+
+        .animation-elements::before {
+            top: 20%;
+            left: -20px;
+            animation-delay: 0.5s;
+        }
+
+        .animation-elements::after {
+            bottom: 30%;
+            right: -20px;
+            animation-delay: 1.5s;
+        }
+
+        /* Enhanced orbit animation */
+        .orbit-circle {
+            box-shadow: 0 0 15px var(--accent-color);
+            animation: orbitRotate 8s linear infinite, pulseGlow 2s ease-in-out infinite;
+        }
+
+        /* Glowing corners */
+        .corner-accent {
+            animation: glowPulse 2s ease-in-out infinite;
+        }
+
+        .corner-accent.top-left { animation-delay: 0s; }
+        .corner-accent.top-right { animation-delay: 0.5s; }
+        .corner-accent.bottom-left { animation-delay: 1s; }
+        .corner-accent.bottom-right { animation-delay: 1.5s; }
+
+        /* New Animations */
+        @keyframes shimmer {
+            0% {
+                transform: translate(-50%, -50%) rotate(45deg);
+            }
+            100% {
+                transform: translate(50%, 50%) rotate(45deg);
+            }
+        }
+
+        @keyframes particleFloat {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            25% {
+                opacity: 0.5;
+            }
+            50% {
+                transform: translateY(-20px) translateX(10px);
+                opacity: 0.8;
+            }
+            75% {
+                opacity: 0.5;
+            }
+        }
+
+        @keyframes orbitRotate {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% {
+                opacity: 0.3;
+                box-shadow: 0 0 15px var(--accent-color);
+            }
+            50% {
+                opacity: 0.6;
+                box-shadow: 0 0 25px var(--accent-color);
+            }
+        }
+
+        @keyframes glowPulse {
+            0%, 100% {
+                opacity: 0.5;
+                box-shadow: 0 0 5px var(--accent-color);
+            }
+            50% {
+                opacity: 0.8;
+                box-shadow: 0 0 10px var(--accent-color);
+            }
+        }
+
+        /* Enhanced hover effects */
+        .profile-frame:hover .orbit-circle {
+            animation-duration: 4s;
+        }
+
+        .profile-frame:hover .glow-effect {
+            opacity: 0.2;
+        }
+
+        .profile-frame:hover .corner-accent {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 15px var(--secondary-color);
+        }
+
+        /* Footer Contact Form Styles */
+        .footer {
+            padding: 60px 0;
+            background: var(--bg-card);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, 
+                rgba(79, 70, 229, 0.1) 0%,
+                rgba(139, 92, 246, 0.1) 100%);
+            z-index: 0;
+        }
+
+        .footer-contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-title {
+            color: var(--text-primary);
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2rem;
+            position: relative;
+        }
+
+        .form-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 2px;
+            background: var(--accent-color);
+        }
+
+        .animated-form .form-group {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .animated-form input,
+        .animated-form textarea {
+            width: 100%;
+            padding: 10px 0;
+            font-size: 16px;
+            color: var(--text-primary);
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--text-secondary);
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .animated-form label {
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 10px 0;
+            font-size: 16px;
+            color: var(--text-secondary);
+            pointer-events: none;
+            transition: 0.3s;
+        }
+
+        .animated-form input:focus ~ label,
+        .animated-form input:valid ~ label,
+        .animated-form textarea:focus ~ label,
+        .animated-form textarea:valid ~ label {
+            top: -20px;
+            font-size: 12px;
+            color: var(--accent-color);
+        }
+
+        .focus-border {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-color);
+            transition: 0.3s;
+        }
+
+        .animated-form input:focus ~ .focus-border,
+        .animated-form textarea:focus ~ .focus-border {
+            width: 100%;
+        }
+
+        .animated-form textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            position: relative;
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--gradient-1);
+            color: var(--text-primary);
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            overflow: hidden;
+            transition: 0.3s;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .btn-text {
+            position: relative;
+            z-index: 1;
+            transition: 0.3s;
+        }
+
+        .btn-icon {
+            position: absolute;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        .submit-btn:hover .btn-text {
+            transform: translateX(-10px);
+        }
+
+        .submit-btn:hover .btn-icon {
+            opacity: 1;
+            transform: translate(0, -50%);
+        }
+
+        /* Responsive adjustments */
+        @media screen and (max-width: 768px) {
+            .footer {
+                padding: 40px 0;
+            }
+
+            .footer-contact-form {
+                max-width: 100%;
+                padding: 0 15px;
+            }
+
+            .form-title {
+                font-size: 1.75rem;
+                margin-bottom: 30px;
+            }
+
+            .animated-form .form-group {
+                margin-bottom: 25px;
+            }
+
+            .animated-form input,
+            .animated-form textarea,
+            .animated-form label {
+                font-size: 15px;
+            }
+
+            .submit-btn {
+                padding: 10px 25px;
+                font-size: 15px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .footer {
+                padding: 30px 0;
+            }
+
+            .footer-contact-form {
+                padding: 0 10px;
+            }
+
+            .form-title {
+                font-size: 1.5rem;
+                margin-bottom: 25px;
+            }
+
+            .animated-form .form-group {
+                margin-bottom: 20px;
+            }
+
+            .animated-form input,
+            .animated-form textarea,
+            .animated-form label {
+                font-size: 14px;
+            }
+
+            .animated-form textarea {
+                min-height: 80px;
+            }
+
+            .submit-btn {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+
+            .btn-icon {
+                right: 20px;
+            }
+        }
+
+        /* Add styles for ultra-small devices */
+        @media screen and (max-width: 320px) {
+            .footer-contact-form {
+                padding: 0 8px;
+            }
+
+            .form-title {
+                font-size: 1.25rem;
+            }
+
+            .animated-form input,
+            .animated-form textarea,
+            .animated-form label {
+                font-size: 13px;
+            }
+
+            .submit-btn {
+                padding: 8px 16px;
+                font-size: 13px;
+            }
+        }
+
+        /* Add smooth transitions for responsive changes */
+        .footer-contact-form,
+        .form-title,
+        .animated-form input,
+        .animated-form textarea,
+        .animated-form label,
+        .submit-btn {
+            transition: all 0.3s ease;
+        }
+
+        /* Add these new styles for the unified contact section */
+        .contact-section {
+            padding: 60px 0;
+            background: var(--bg-card);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, 
+                rgba(79, 70, 229, 0.1) 0%,
+                rgba(139, 92, 246, 0.1) 100%);
+            z-index: 0;
+        }
+
+        .contact-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            gap: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-cards-container,
+        .contact-form-container {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-rows: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .contact-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .contact-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: var(--text-primary);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .contact-card i {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: var(--accent-color);
+        }
+
+        .contact-text {
+            display: block;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* Responsive adjustments */
+        @media screen and (max-width: 968px) {
+            .contact-wrapper {
+                flex-direction: column;
+            }
+
+            .contact-cards-container,
+            .contact-form-container {
+                width: 100%;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-section {
+                padding: 40px 0;
+            }
+
+            .contact-wrapper {
+                padding: 0 15px;
+            }
+        }
+
+        /* Add these styles for the hamburger menu */
+        .mobile-menu-btn {
+            display: none; /* Hidden by default on desktop */
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 1000;
+            position: relative;
+        }
+
+        .mobile-menu-btn span {
+            display: block;
+            width: 25px;
+            height: 2px;
+            background-color: var(--text-primary);
+            margin: 5px 0;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        /* Hamburger animation classes */
+        .mobile-menu-btn.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .mobile-menu-btn.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-btn.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        /* Show hamburger on mobile */
+        @media screen and (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: 250px;
+                background: var(--bg-card);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: 0.3s ease;
+                backdrop-filter: blur(10px);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links li {
+                margin: 20px 0;
+            }
+        }
+
+        /* Add these styles in your existing CSS */
+        .contact-link {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--gradient-1);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .contact-link:hover::after {
+            transform: translateX(0);
+        }
+
+        /* Add animation for scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Add highlight effect when scrolling to contact section */
+        .contact-section.highlight {
+            animation: highlightSection 1s ease;
+        }
+
+        @keyframes highlightSection {
+            0% {
+                background: var(--bg-card);
+            }
+            50% {
+                background: rgba(79, 70, 229, 0.1);
+            }
+            100% {
+                background: var(--bg-card);
+            }
+        }
+
+        /* Add these new styles for menu animations */
+        .nav-link {
+            position: relative;
+            padding: 5px 10px;
+            transition: all 0.3s ease;
+            background: linear-gradient(90deg, transparent 0%, transparent 50%, var(--accent-color) 50%, var(--accent-color) 100%);
+            background-size: 200% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-position: 100% 0;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--gradient-1);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            right: 0;
+            width: 2px;
+            height: 0;
+            background: var(--gradient-2);
+            transition: height 0.3s ease;
+        }
+
+        /* Hover effects */
+        .nav-link:hover {
+            background-position: 0 0;
+            transform: translateY(-2px);
+        }
+
+        .nav-link:hover::before {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .nav-link:hover::after {
+            height: calc(100% + 4px);
+        }
+
+        /* Active state */
+        .nav-link.active {
+            background-position: 0 0;
+        }
+
+        .nav-link.active::before {
+            transform: scaleX(1);
+        }
+
+        /* Add floating animation for active link */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .nav-link.active {
+            animation: float 2s ease-in-out infinite;
+        }
+
+        /* Add glow effect on hover */
+        .nav-link:hover {
+            text-shadow: 0 0 10px var(--accent-color);
+            filter: brightness(1.2);
+        }
+
+        /* Add unique animations for each menu item */
+        .nav-links li:nth-child(1) .nav-link::before { transition-delay: 0s; }
+        .nav-links li:nth-child(2) .nav-link::before { transition-delay: 0.1s; }
+        .nav-links li:nth-child(3) .nav-link::before { transition-delay: 0.2s; }
+        .nav-links li:nth-child(4) .nav-link::before { transition-delay: 0.3s; }
+        .nav-links li:nth-child(5) .nav-link::before { transition-delay: 0.4s; }
+
+        /* Add pulse animation for active section */
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(139, 92, 246, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(139, 92, 246, 0);
+            }
+        }
+
+        .nav-link.active {
+            animation: float 2s ease-in-out infinite, pulse 2s infinite;
+        }
+
+        /* Add these styles for the Language section */
+        .language-section {
+            padding: 60px 0;
+            background: var(--bg-card);
+            position: relative;
+        }
+
+        .language-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .language-item {
+            position: relative;
+            padding: 15px;
+            border-radius: 10px;
+            background: var(--bg-card);
+            transition: transform 0.3s ease;
+        }
+
+        .language-item::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 10px;
+            padding: 2px;
+            background: var(--gradient-1);
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .language-item:hover::before {
+            opacity: 1;
+        }
+
+        .progress {
+            position: relative;
+            background: var(--gradient-1);
+            transform-origin: left;
+            transform: scaleX(0);
+            animation: none;
+        }
+
+        .progress::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.4),
+                transparent
+            );
+            animation: shine 2s infinite;
+        }
+
+        /* Add these new animations to the Language section */
+        .progress-bar {
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Add 3D effect to progress bars */
+        .progress::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                90deg,
+                rgba(255, 255, 255, 0.1) 0%,
+                rgba(255, 255, 255, 0.2) 50%,
+                rgba(255, 255, 255, 0.1) 100%
+            );
+            transform: skewX(-20deg);
+            animation: slidingLight 2s linear infinite;
+        }
+
+        /* Unique animations for each language */
+        .progress.english {
+            animation: growBar 1.5s ease forwards,
+                       neonPulse 2s infinite,
+                       liquidEffect 3s ease-in-out infinite;
+        }
+
+        .progress.hindi {
+            animation: growBar 1.5s ease forwards,
+                       electricFlow 2s infinite,
+                       gradientShift 4s linear infinite;
+        }
+
+        .progress.bengali {
+            animation: growBar 1.5s ease forwards,
+                       plasmaEffect 3s infinite,
+                       energyPulse 2s ease-in-out infinite;
+        }
+
+        /* New animation keyframes */
+        @keyframes slidingLight {
+            0% { transform: translateX(-200%) skewX(-20deg); }
+            100% { transform: translateX(200%) skewX(-20deg); }
+        }
+
+        @keyframes neonPulse {
+            0%, 100% {
+                filter: brightness(1) drop-shadow(0 0 2px var(--accent-color));
+            }
+            50% {
+                filter: brightness(1.3) drop-shadow(0 0 8px var(--accent-color));
+            }
+        }
+
+        @keyframes liquidEffect {
+            0%, 100% {
+                border-radius: 10px 10px 10px 10px;
+            }
+            50% {
+                border-radius: 10px 20px 10px 20px;
+            }
+        }
+
+        @keyframes electricFlow {
+            0% {
+                clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            }
+            50% {
+                clip-path: polygon(
+                    0 15%, 10% 20%, 20% 10%, 30% 15%,
+                    40% 5%, 50% 15%, 60% 10%, 70% 20%,
+                    80% 15%, 90% 5%, 100% 15%, 100% 100%,
+                    0 100%
+                );
+            }
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 100% 50%;
+            }
+        }
+
+        @keyframes plasmaEffect {
+            0%, 100% {
+                box-shadow: 
+                    0 0 5px var(--accent-color),
+                    inset 0 0 10px var(--accent-color);
+            }
+            50% {
+                box-shadow: 
+                    0 0 20px var(--accent-color),
+                    inset 0 0 20px var(--accent-color);
+            }
+        }
+
+        @keyframes energyPulse {
+            0%, 100% {
+                transform: scaleY(1);
+            }
+            50% {
+                transform: scaleY(1.1);
+            }
+        }
+
+        /* Enhanced hover effects for language items */
+        .language-item:hover .progress::before {
+            opacity: 1;
+            transform: translateX(0) scale(1.05);
+        }
+
+        .language-item:hover .language-percentage {
+            animation: numberSpin 0.5s ease-out;
+        }
+
+        @keyframes numberSpin {
+            0% {
+                transform: rotateX(0deg);
+            }
+            100% {
+                transform: rotateX(360deg);
+            }
+        }
+
+        /* Add particle effects */
+        .language-item::before {
+            content: '';
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            filter: blur(1px);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .language-item:hover::before {
+            animation: particleBurst 1s ease-out;
+        }
+
+        @keyframes particleBurst {
+            0% {
+                opacity: 0;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.8;
+                transform: scale(15);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(30);
+            }
+        }
+
+        /* Add magnetic effect on hover */
+        .language-info {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .language-item:hover .language-info {
+            transform: translateX(5px);
+        }
+
+        /* Add glitch effect on hover */
+        .language-name:hover {
+            animation: glitchText 0.3s ease-in-out infinite;
+        }
+
+        @keyframes glitchText {
+            0% {
+                text-shadow: 2px 0 var(--accent-color), -2px 0 var(--secondary-color);
+                transform: translate(0);
+            }
+            25% {
+                text-shadow: -2px 0 var(--accent-color), 2px 0 var(--secondary-color);
+                transform: translate(1px);
+            }
+            50% {
+                text-shadow: 2px 0 var(--accent-color), -2px 0 var(--secondary-color);
+                transform: translate(-1px);
+            }
+            100% {
+                text-shadow: -2px 0 var(--accent-color), 2px 0 var(--secondary-color);
+                transform: translate(0);
+            }
+        }
+
+        /* Add these new animations for percentage values */
+        .language-percentage {
+            position: relative;
+            padding-right: 25px;  /* Make space for the line */
+        }
+
+        .language-percentage::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 2px;
+            border-radius: 1px;
+        }
+
+        /* English - 70% line */
+        .language-item:nth-child(1) .language-percentage::after {
+            background: linear-gradient(90deg, #4F46E5 70%, rgba(79, 70, 229, 0.3) 70%);
+            box-shadow: 0 0 8px rgba(79, 70, 229, 0.5);
+        }
+
+        /* Hindi - 80% line */
+        .language-item:nth-child(2) .language-percentage::after {
+            background: linear-gradient(90deg, #8B5CF6 80%, rgba(139, 92, 246, 0.3) 80%);
+            box-shadow: 0 0 8px rgba(139, 92, 246, 0.5);
+        }
+
+        /* Bengali - 100% line */
+        .language-item:nth-child(3) .language-percentage::after {
+            background: linear-gradient(90deg, #10B981 100%, rgba(16, 185, 129, 0.3) 100%);
+            box-shadow: 0 0 8px rgba(16, 185, 129, 0.5);
+        }
+
+        /* Unique progress bar styles */
+        .progress.english {
+            background: linear-gradient(90deg, var(--primary-color) 70%, rgba(255,255,255,0.1) 70%);
+            animation: fillEnglish 2s ease-out forwards,
+                       glowPulse70 2s infinite;
+        }
+
+        .progress.hindi {
+            background: linear-gradient(90deg, var(--accent-color) 80%, rgba(255,255,255,0.1) 80%);
+            animation: fillHindi 2.2s ease-out forwards,
+                       wavePulse80 3s infinite;
+        }
+
+        .progress.bengali {
+            background: var(--gradient-1);
+            animation: fillBengali 2.5s ease-out forwards,
+                       perfectShine 2s infinite;
+        }
+
+        /* Animation keyframes for percentages */
+        @keyframes pulse70 {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1) rotate(5deg); }
+        }
+
+        @keyframes glow80 {
+            0%, 100% { 
+                text-shadow: 0 0 5px var(--accent-color);
+                transform: translateY(0);
+            }
+            50% { 
+                text-shadow: 0 0 15px var(--accent-color);
+                transform: translateY(-3px);
+            }
+        }
+
+        @keyframes perfect100 {
+            0%, 100% {
+                transform: scale(1);
+                text-shadow: 0 0 10px var(--secondary-color);
+            }
+            50% {
+                transform: scale(1.2);
+                text-shadow: 0 0 20px var(--secondary-color),
+                             0 0 30px var(--accent-color);
+            }
+        }
+
+        /* Progress bar fill animations */
+        @keyframes fillEnglish {
+            0% { width: 0; }
+            70% { width: 65%; }
+            100% { width: 70%; }
+        }
+
+        @keyframes fillHindi {
+            0% { width: 0; }
+            70% { width: 75%; }
+            100% { width: 80%; }
+        }
+
+        @keyframes fillBengali {
+            0% { width: 0; }
+            70% { width: 95%; }
+            100% { width: 100%; }
+        }
+
+        /* Special effects for progress bars */
+        @keyframes glowPulse70 {
+            0%, 100% {
+                box-shadow: 0 0 5px var(--primary-color);
+            }
+            70% {
+                box-shadow: 0 0 15px var(--primary-color);
+            }
+        }
+
+        @keyframes wavePulse80 {
+            0%, 100% {
+                clip-path: polygon(0 0, 80% 0, 80% 100%, 0 100%);
+            }
+            50% {
+                clip-path: polygon(
+                    0 15%, 10% 10%, 20% 15%, 30% 10%,
+                    40% 15%, 50% 10%, 60% 15%, 70% 10%,
+                    80% 15%, 80% 100%, 0 100%
+                );
+            }
+        }
+
+        @keyframes perfectShine {
+            0% {
+                background-position: 200% 0;
+            }
+            100% {
+                background-position: -200% 0;
+            }
+        }
+
+        /* Add particle effects for each level */
+        .language-item::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .language-item:nth-child(1)::after {
+            background: var(--primary-color);
+            animation: particles70 3s infinite;
+        }
+
+        .language-item:nth-child(2)::after {
+            background: var(--accent-color);
+            animation: particles80 3s infinite;
+        }
+
+        .language-item:nth-child(3)::after {
+            background: var(--secondary-color);
+            animation: particles100 3s infinite;
+        }
+
+        @keyframes particles70 {
+            0% { transform: translate(0, 0); opacity: 0; }
+            50% { opacity: 0.7; }
+            100% { transform: translate(-30px, -30px); opacity: 0; }
+        }
+
+        @keyframes particles80 {
+            0% { transform: translate(0, 0); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translate(-40px, -40px); opacity: 0; }
+        }
+
+        @keyframes particles100 {
+            0% { transform: translate(0, 0); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translate(-50px, -50px); opacity: 0; }
+        }
+
+        /* Enhanced hover effects for each level */
+        .language-item:nth-child(1):hover .progress {
+            filter: brightness(1.2) contrast(1.1);
+            transform: scaleX(1.02);
+        }
+
+        .language-item:nth-child(2):hover .progress {
+            filter: brightness(1.3) contrast(1.2);
+            transform: scaleX(1.03);
+        }
+
+        .language-item:nth-child(3):hover .progress {
+            filter: brightness(1.4) contrast(1.3);
+            transform: scaleX(1.05);
+        }
+
+        /* Add 3D effect on hover */
+        .language-item:hover .language-percentage {
+            transform: perspective(500px) translateZ(20px);
+            text-shadow: 
+                0 0 10px var(--accent-color),
+                0 0 20px var(--secondary-color);
+        }
+
+        .success-icon {
+            display: none;
+            color: #10B981;
+        }
+
+        .cv-download-btn:active {
+            transform: scale(0.95);
+        }
+
+        .cv-download-btn .icon-wrapper {
+            position: relative;
+            display: inline-block;
+            margin-right: 8px;
+        }
+
+        /* Add these new animations for skill boxes */
+        .skill-box .skill-back ul li span {
+            position: relative;
+            display: inline-block;
+            transition: all 0.3s ease;
+            padding: 2px 8px;
+        }
+
+        /* Languages section animations */
+        .skill-box[data-skill="languages"] .skill-back ul li span {
+            animation: codePulse 2s infinite;
+        }
+
+        .skill-box[data-skill="languages"] .skill-back ul li span:hover {
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transform: translateX(10px) scale(1.1);
+        }
+
+        /* Frontend section animations */
+        .skill-box[data-skill="frontend"] .skill-back ul li span {
+            animation: fadeInOut 2s infinite;
+        }
+
+        .skill-box[data-skill="frontend"] .skill-back ul li span:hover {
+            text-shadow: 0 0 15px var(--secondary-color);
+            transform: translateY(-5px);
+            color: var(--secondary-color);
+        }
+
+        /* Backend section animations */
+        .skill-box[data-skill="backend"] .skill-back ul li span {
+            animation: serverPulse 2s infinite;
+        }
+
+        .skill-box[data-skill="backend"] .skill-back ul li span:hover {
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transform: scale(1.1);
+        }
+
+        /* Database section animations */
+        .skill-box[data-skill="database"] .skill-back ul li span {
+            animation: dbGlow 2s infinite;
+        }
+
+        .skill-box[data-skill="database"] .skill-back ul li span:hover {
+            color: var(--accent-color);
+            transform: rotate(5deg) scale(1.1);
+        }
+
+        /* Animation keyframes */
+        @keyframes codePulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% {
+                opacity: 0.8;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes serverPulse {
+            0%, 100% {
+                transform: translateX(0);
+            }
+            50% {
+                transform: translateX(5px);
+            }
+        }
+
+        @keyframes dbGlow {
+            0%, 100% {
+                text-shadow: 0 0 5px var(--accent-color);
+            }
+            50% {
+                text-shadow: 0 0 15px var(--accent-color);
+            }
+        }
+
+        /* Add particle effects on hover */
+        .skill-back ul li span::before {
+            content: '';
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .skill-back ul li span:hover::before {
+            animation: particleEffect 1s ease-out infinite;
+        }
+
+        @keyframes particleEffect {
+            0% {
+                transform: translate(0, 0);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-20px, -20px);
+                opacity: 0;
+            }
+        }
+
+        /* Add glitch effect on touch for mobile */
+        @media (hover: none) {
+            .skill-back ul li span:active {
+                animation: glitchText 0.3s ease-in-out;
+            }
+        }
+
+        @keyframes glitchText {
+            0% {
+                transform: translate(0);
+            }
+            25% {
+                transform: translate(-2px, 2px);
+            }
+            50% {
+                transform: translate(2px, -2px);
+            }
+            75% {
+                transform: translate(-2px, -2px);
+            }
+            100% {
+                transform: translate(0);
+            }
+        }
+
+        /* Enhanced animations for skill items text */
+        .skill-back ul li span {
+            position: relative;
+            display: inline-block;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Language skills text animations */
+        .skill-box[data-skill="languages"] .skill-back ul li span {
+            animation: floatText 3s ease-in-out infinite;
+        }
+
+        .skill-box[data-skill="languages"] .skill-back ul li span:hover {
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transform: translateX(10px) scale(1.1);
+            letter-spacing: 1px;
+        }
+
+        /* Frontend skills text animations */
+        .skill-box[data-skill="frontend"] .skill-back ul li span {
+            animation: glowPulse 2s infinite;
+        }
+
+        .skill-box[data-skill="frontend"] .skill-back ul li span:hover {
+            text-shadow: 0 0 15px var(--accent-color);
+            transform: translateY(-5px) rotate(2deg);
+            color: var(--secondary-color);
+        }
+
+        /* Backend skills text animations */
+        .skill-box[data-skill="backend"] .skill-back ul li span {
+            animation: slideWave 3s infinite;
+        }
+
+        .skill-box[data-skill="backend"] .skill-back ul li span:hover {
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transform: scale(1.1) skew(-5deg);
+        }
+
+        /* Database skills text animations */
+        .skill-box[data-skill="database"] .skill-back ul li span {
+            animation: pulseOpacity 2s infinite;
+        }
+
+        .skill-box[data-skill="database"] .skill-back ul li span:hover {
+            color: var(--accent-color);
+            transform: rotate(5deg) scale(1.1);
+            text-shadow: 2px 2px 4px rgba(139, 92, 246, 0.3);
+        }
+
+        /* New animation keyframes */
+        @keyframes floatText {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+
+        @keyframes glowPulse {
+            0%, 100% {
+                text-shadow: 0 0 2px var(--accent-color);
+            }
+            50% {
+                text-shadow: 0 0 8px var(--accent-color);
+            }
+        }
+
+        @keyframes slideWave {
+            0%, 100% {
+                transform: translateX(0);
+            }
+            50% {
+                transform: translateX(5px) translateY(-2px);
+            }
+        }
+
+        @keyframes pulseOpacity {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.8;
+                transform: scale(0.95);
+            }
+        }
+
+        /* Add magnetic effect on hover */
+        .skill-back ul li {
+            position: relative;
+            overflow: visible;
+        }
+
+        .skill-back ul li::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(139, 92, 246, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .skill-back ul li:hover::before {
+            opacity: 1;
+            animation: magneticPulse 1s infinite;
+        }
+
+        @keyframes magneticPulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Add 3D perspective effect */
+        .skill-back ul {
+            perspective: 1000px;
+        }
+
+        .skill-back ul li span:hover {
+            transform-style: preserve-3d;
+            animation: rotate3D 0.5s ease-out;
+        }
+
+        @keyframes rotate3D {
+            0% {
+                transform: rotateX(0) rotateY(0);
+            }
+            50% {
+                transform: rotateX(10deg) rotateY(10deg);
+            }
+            100% {
+                transform: rotateX(0) rotateY(0);
+            }
+        }
+
+        /* Add these new styles for the responsive background */
+        body {
+            position: relative;
+            background: var(--bg-dark);
+        }
+
+        .dynamic-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .dynamic-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+<!DOCTYPE html>
+            overflow: hidden;
+        }
+
+        .background-grid {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background-image: 
+                linear-gradient(var(--bg-dark) 2px, transparent 2px),
+                linear-gradient(90deg, var(--bg-dark) 2px, transparent 2px);
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abir Sheet - Portfolio</title>
+    <meta name="theme-color" content="#1a1a1a">
+    <style>
+        :root {
+            /* Modern Gradient Color Scheme */
+            --primary-color: #4F46E5;    /* Deep Indigo */
+            --secondary-color: #10B981;  /* Emerald */
+            --accent-color: #8B5CF6;     /* Purple */
+            --gradient-1: linear-gradient(135deg, #4F46E5, #10B981);
+            --gradient-2: linear-gradient(45deg, #8B5CF6, #4F46E5);
+            
+            /* Background Colors */
+            --bg-dark: #0F172A;          /* Dark Blue */
+            --bg-card: rgba(30, 41, 59, 0.5);
+            
+            /* Text Colors */
+            --text-primary: #F8FAFC;     /* Light */
+            --text-secondary: #94A3B8;   /* Gray */
+            --text-accent: #10B981;      /* Emerald */
+            
+            /* Other Variables */
+            --transition: all 0.3s ease;
+            --card-border: 1px solid rgba(255, 255, 255, 0.1);
+            --card-radius: 15px;
+            --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Rest of your CSS remains the same, just update the color values */
+
+        @media screen and (max-width: 768px) {
+            .about-content {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .profile-image-container,
+            .intro-content {
+                width: 100%;
+            }
+
+            .home-content h1 {
+                font-size: 2rem;
+            }
+
+            .developer-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        section {
+            overflow-x: hidden;
+        }
+
+        .intro-text {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .text-line {
+            display: block;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: typeWriter 0.5s ease forwards;
+        }
+
+        /* Delay each line */
+        .text-line:nth-child(1) { animation-delay: 0.2s; }
+        .text-line:nth-child(2) { animation-delay: 0.4s; }
+        .text-line:nth-child(3) { animation-delay: 0.6s; }
+        .text-line:nth-child(4) { animation-delay: 0.8s; }
+
+        /* Animation for fade in up effect */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Animation for typewriter effect */
+        @keyframes typeWriter {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Add scroll animation */
+        .animated-text.scroll-animate {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .animated-text.scroll-animate.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .profile-image-container {
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .profile-frame {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            border-radius: 20px;
+            overflow: hidden;
+            background: var(--bg-card);
+            box-shadow: var(--card-shadow);
+        }
+
+        .image-wrapper {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+        }
+
+        .profile-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            transition: transform 0.3s ease;
+        }
+
+        /* Hover effects */
+        .profile-frame:hover .profile-image {
+            transform: scale(1.05);
+        }
+
+        .orbit-circle {
+            position: absolute;
+            width: 120%;
+            height: 120%;
+            border: 2px solid var(--accent-color);
+            border-radius: 50%;
+            top: -10%;
+            left: -10%;
+            animation: rotate 10s linear infinite;
+            opacity: 0.3;
+        }
+
+        .glow-effect {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, var(--accent-color) 0%, transparent 70%);
+            opacity: 0.1;
+            mix-blend-mode: overlay;
+        }
+
+        /* Corner accents */
+        .corner-accent {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--accent-color);
+            opacity: 0.5;
+        }
+
+        .top-left {
+            top: 10px;
+            left: 10px;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .top-right {
+            top: 10px;
+            right: 10px;
+            border-left: none;
+            border-bottom: none;
+        }
+
+        .bottom-left {
+            bottom: 10px;
+            left: 10px;
+            border-right: none;
+            border-top: none;
+        }
+
+        .bottom-right {
+            bottom: 10px;
+            right: 10px;
+            border-left: none;
+            border-top: none;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Responsive adjustments */
+        @media screen and (max-width: 768px) {
+            .profile-frame {
+                width: 250px;
+                height: 250px;
+            }
+            
+            .profile-image-container {
+                padding: 10px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .profile-frame {
+                width: 200px;
+                height: 200px;
+            }
+        }
+
+        /* Add these new animations without modifying existing code */
+        .profile-frame {
+            position: relative;
+            overflow: visible !important;
+        }
+
+        /* Add shimmer effect */
+        .profile-frame::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(255, 255, 255, 0.1),
+                transparent
+            );
+            transform: rotate(45deg);
+            animation: shimmer 3s infinite;
+        }
+
+        /* Particle effects */
+        .animation-elements::before,
+        .animation-elements::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            filter: blur(2px);
+            opacity: 0;
+            animation: particleFloat 4s infinite;
+        }
+
+        .animation-elements::before {
+            top: 20%;
+            left: -20px;
+            animation-delay: 0.5s;
+        }
+
+        .animation-elements::after {
+            bottom: 30%;
+            right: -20px;
+            animation-delay: 1.5s;
+        }
+
+        /* Enhanced orbit animation */
+        .orbit-circle {
+            box-shadow: 0 0 15px var(--accent-color);
+            animation: orbitRotate 8s linear infinite, pulseGlow 2s ease-in-out infinite;
+        }
+
+        /* Glowing corners */
+        .corner-accent {
+            animation: glowPulse 2s ease-in-out infinite;
+        }
+
+        .corner-accent.top-left { animation-delay: 0s; }
+        .corner-accent.top-right { animation-delay: 0.5s; }
+        .corner-accent.bottom-left { animation-delay: 1s; }
+        .corner-accent.bottom-right { animation-delay: 1.5s; }
+
+        /* New Animations */
+        @keyframes shimmer {
+            0% {
+                transform: translate(-50%, -50%) rotate(45deg);
+            }
+            100% {
+                transform: translate(50%, 50%) rotate(45deg);
+            }
+        }
+
+        @keyframes particleFloat {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            25% {
+                opacity: 0.5;
+            }
+            50% {
+                transform: translateY(-20px) translateX(10px);
+                opacity: 0.8;
+            }
+            75% {
+                opacity: 0.5;
+            }
+        }
+
+        @keyframes orbitRotate {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% {
+                opacity: 0.3;
+                box-shadow: 0 0 15px var(--accent-color);
+            }
+            50% {
+                opacity: 0.6;
+                box-shadow: 0 0 25px var(--accent-color);
+            }
+        }
+
+        @keyframes glowPulse {
+            0%, 100% {
+                opacity: 0.5;
+                box-shadow: 0 0 5px var(--accent-color);
+            }
+            50% {
+                opacity: 0.8;
+                box-shadow: 0 0 10px var(--accent-color);
+            }
+        }
+
+        /* Enhanced hover effects */
+        .profile-frame:hover .orbit-circle {
+            animation-duration: 4s;
+        }
+
+        .profile-frame:hover .glow-effect {
+            opacity: 0.2;
+        }
+
+        .profile-frame:hover .corner-accent {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 15px var(--secondary-color);
+        }
+
+        /* Footer Contact Form Styles */
+        .footer {
+            padding: 60px 0;
+            background: var(--bg-card);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, 
+                rgba(79, 70, 229, 0.1) 0%,
+                rgba(139, 92, 246, 0.1) 100%);
+            z-index: 0;
+        }
+
+        .footer-contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-title {
+            color: var(--text-primary);
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2rem;
+            position: relative;
+        }
+
+        .form-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 2px;
+            background: var(--accent-color);
+        }
+
+        .animated-form .form-group {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .animated-form input,
+        .animated-form textarea {
+            width: 100%;
+            padding: 10px 0;
+            font-size: 16px;
+            color: var(--text-primary);
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--text-secondary);
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .animated-form label {
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 10px 0;
+            font-size: 16px;
+            color: var(--text-secondary);
+            pointer-events: none;
+            transition: 0.3s;
+        }
+
+        .animated-form input:focus ~ label,
+        .animated-form input:valid ~ label,
+        .animated-form textarea:focus ~ label,
+        .animated-form textarea:valid ~ label {
+            top: -20px;
+            font-size: 12px;
+            color: var(--accent-color);
+        }
+
+        .focus-border {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-color);
+            transition: 0.3s;
+        }
+
+        .animated-form input:focus ~ .focus-border,
+        .animated-form textarea:focus ~ .focus-border {
+            width: 100%;
+        }
+
+        .animated-form textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            position: relative;
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--gradient-1);
+            color: var(--text-primary);
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            overflow: hidden;
+            transition: 0.3s;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .btn-text {
+            position: relative;
+            z-index: 1;
+            transition: 0.3s;
+        }
+
+        .btn-icon {
+            position: absolute;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        .submit-btn:hover .btn-text {
+            transform: translateX(-10px);
+        }
+
+        .submit-btn:hover .btn-icon {
+            opacity: 1;
+            transform: translate(0, -50%);
+        }
+
+        /* Responsive adjustments */
+        @media screen and (max-width: 768px) {
+            .footer {
+                padding: 40px 0;
+            }
+
+            .footer-contact-form {
+                max-width: 100%;
+                padding: 0 15px;
+            }
+
+            .form-title {
+                font-size: 1.75rem;
+                margin-bottom: 30px;
+            }
+
+            .animated-form .form-group {
+                margin-bottom: 25px;
+            }
+
+            .animated-form input,
+            .animated-form textarea,
+            .animated-form label {
+                font-size: 15px;
+            }
+
+            .submit-btn {
+                padding: 10px 25px;
+                font-size: 15px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .footer {
+                padding: 30px 0;
+            }
+
+            .footer-contact-form {
+                padding: 0 10px;
+            }
+
+            .form-title {
+                font-size: 1.5rem;
+                margin-bottom: 25px;
+            }
+
+            .animated-form .form-group {
+                margin-bottom: 20px;
+            }
+
+            .animated-form input,
+            .animated-form textarea,
+            .animated-form label {
+                font-size: 14px;
+            }
+
+            .animated-form textarea {
+                min-height: 80px;
+            }
+
+            .submit-btn {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+
+            .btn-icon {
+                right: 20px;
+            }
+        }
+
+        /* Add styles for ultra-small devices */
+        @media screen and (max-width: 320px) {
+            .footer-contact-form {
+                padding: 0 8px;
+            }
+
+            .form-title {
+                font-size: 1.25rem;
+            }
+
+            .animated-form input,
+            .animated-form textarea,
+            .animated-form label {
+                font-size: 13px;
+            }
+
+            .submit-btn {
+                padding: 8px 16px;
+                font-size: 13px;
+            }
+        }
+
+        /* Add smooth transitions for responsive changes */
+        .footer-contact-form,
+        .form-title,
+        .animated-form input,
+        .animated-form textarea,
+        .animated-form label,
+        .submit-btn {
+            transition: all 0.3s ease;
+        }
+
+        /* Add these new styles for the unified contact section */
+        .contact-section {
+            padding: 60px 0;
+            background: var(--bg-card);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, 
+                rgba(79, 70, 229, 0.1) 0%,
+                rgba(139, 92, 246, 0.1) 100%);
+            z-index: 0;
+        }
+
+        .contact-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            gap: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-cards-container,
+        .contact-form-container {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-rows: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .contact-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .contact-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: var(--text-primary);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .contact-card i {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: var(--accent-color);
+        }
+
+        .contact-text {
+            display: block;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* Responsive adjustments */
+        @media screen and (max-width: 968px) {
+            .contact-wrapper {
+                flex-direction: column;
+            }
+
+            .contact-cards-container,
+            .contact-form-container {
+                width: 100%;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-section {
+                padding: 40px 0;
+            }
+
+            .contact-wrapper {
+                padding: 0 15px;
+            }
+        }
+
+        /* Add these styles for the hamburger menu */
+        .mobile-menu-btn {
+            display: none; /* Hidden by default on desktop */
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 1000;
+            position: relative;
+        }
+
+        .mobile-menu-btn span {
+            display: block;
+            width: 25px;
+            height: 2px;
+            background-color: var(--text-primary);
+            margin: 5px 0;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        /* Hamburger animation classes */
+        .mobile-menu-btn.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .mobile-menu-btn.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-btn.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        /* Show hamburger on mobile */
+        @media screen and (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: 250px;
+                background: var(--bg-card);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: 0.3s ease;
+                backdrop-filter: blur(10px);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links li {
+                margin: 20px 0;
+            }
+        }
+
+        /* Add these styles in your existing CSS */
+        .contact-link {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--gradient-1);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .contact-link:hover::after {
+            transform: translateX(0);
+        }
+
+        /* Add animation for scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Add highlight effect when scrolling to contact section */
+        .contact-section.highlight {
+            animation: highlightSection 1s ease;
+        }
+
+        @keyframes highlightSection {
+            0% {
+                background: var(--bg-card);
+            }
+            50% {
+                background: rgba(79, 70, 229, 0.1);
+            }
+            100% {
+                background: var(--bg-card);
+            }
+        }
+
+        /* Add these new styles for menu animations */
+        .nav-link {
+            position: relative;
+            padding: 5px 10px;
+            transition: all 0.3s ease;
+            background: linear-gradient(90deg, transparent 0%, transparent 50%, var(--accent-color) 50%, var(--accent-color) 100%);
+            background-size: 200% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-position: 100% 0;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--gradient-1);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            right: 0;
+            width: 2px;
+            height: 0;
+            background: var(--gradient-2);
+            transition: height 0.3s ease;
+        }
+
+        /* Hover effects */
+        .nav-link:hover {
+            background-position: 0 0;
+            transform: translateY(-2px);
+        }
+
+        .nav-link:hover::before {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .nav-link:hover::after {
+            height: calc(100% + 4px);
+        }
+
+        /* Active state */
+        .nav-link.active {
+            background-position: 0 0;
+        }
+
+        .nav-link.active::before {
+            transform: scaleX(1);
+        }
+
+        /* Add floating animation for active link */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .nav-link.active {
+            animation: float 2s ease-in-out infinite;
+        }
+
+        /* Add glow effect on hover */
+        .nav-link:hover {
+            text-shadow: 0 0 10px var(--accent-color);
+            filter: brightness(1.2);
+        }
+
+        /* Add unique animations for each menu item */
+        .nav-links li:nth-child(1) .nav-link::before { transition-delay: 0s; }
+        .nav-links li:nth-child(2) .nav-link::before { transition-delay: 0.1s; }
+        .nav-links li:nth-child(3) .nav-link::before { transition-delay: 0.2s; }
+        .nav-links li:nth-child(4) .nav-link::before { transition-delay: 0.3s; }
+        .nav-links li:nth-child(5) .nav-link::before { transition-delay: 0.4s; }
+
+        /* Add pulse animation for active section */
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(139, 92, 246, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(139, 92, 246, 0);
+            }
+        }
+
+        .nav-link.active {
+            animation: float 2s ease-in-out infinite, pulse 2s infinite;
+        }
+
+        /* Add these styles for the Language section */
+        .language-section {
+            padding: 60px 0;
+            background: var(--bg-card);
+            position: relative;
+        }
+
+        .language-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .language-item {
+            position: relative;
+            padding: 15px;
+            border-radius: 10px;
+            background: var(--bg-card);
+            transition: transform 0.3s ease;
+        }
+
+        .language-item::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 10px;
+            padding: 2px;
+            background: var(--gradient-1);
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .language-item:hover::before {
+            opacity: 1;
+        }
+
+        .progress {
+            position: relative;
+            background: var(--gradient-1);
+            transform-origin: left;
+            transform: scaleX(0);
+            animation: none;
+        }
+
+        .progress::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.4),
+                transparent
+            );
+            animation: shine 2s infinite;
+        }
+
+        /* Add these new animations to the Language section */
+        .progress-bar {
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Add 3D effect to progress bars */
+        .progress::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                90deg,
+                rgba(255, 255, 255, 0.1) 0%,
+                rgba(255, 255, 255, 0.2) 50%,
+                rgba(255, 255, 255, 0.1) 100%
+            );
+            transform: skewX(-20deg);
+            animation: slidingLight 2s linear infinite;
+        }
+
+        /* Unique animations for each language */
+        .progress.english {
+            animation: growBar 1.5s ease forwards,
+                       neonPulse 2s infinite,
+                       liquidEffect 3s ease-in-out infinite;
+        }
+
+        .progress.hindi {
+            animation: growBar 1.5s ease forwards,
+                       electricFlow 2s infinite,
+                       gradientShift 4s linear infinite;
+        }
+
+        .progress.bengali {
+            animation: growBar 1.5s ease forwards,
+                       plasmaEffect 3s infinite,
+                       energyPulse 2s ease-in-out infinite;
+        }
+
+        /* New animation keyframes */
+        @keyframes slidingLight {
+            0% { transform: translateX(-200%) skewX(-20deg); }
+            100% { transform: translateX(200%) skewX(-20deg); }
+        }
+
+        @keyframes neonPulse {
+            0%, 100% {
+                filter: brightness(1) drop-shadow(0 0 2px var(--accent-color));
+            }
+            50% {
+                filter: brightness(1.3) drop-shadow(0 0 8px var(--accent-color));
+            }
+        }
+
+        @keyframes liquidEffect {
+            0%, 100% {
+                border-radius: 10px 10px 10px 10px;
+            }
+            50% {
+                border-radius: 10px 20px 10px 20px;
+            }
+        }
+
+        @keyframes electricFlow {
+            0% {
+                clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            }
+            50% {
+                clip-path: polygon(
+                    0 15%, 10% 20%, 20% 10%, 30% 15%,
+                    40% 5%, 50% 15%, 60% 10%, 70% 20%,
+                    80% 15%, 90% 5%, 100% 15%, 100% 100%,
+                    0 100%
+                );
+            }
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 100% 50%;
+            }
+        }
+
+        @keyframes plasmaEffect {
+            0%, 100% {
+                box-shadow: 
+                    0 0 5px var(--accent-color),
+                    inset 0 0 10px var(--accent-color);
+            }
+            50% {
+                box-shadow: 
+                    0 0 20px var(--accent-color),
+                    inset 0 0 20px var(--accent-color);
+            }
+        }
+
+        @keyframes energyPulse {
+            0%, 100% {
+                transform: scaleY(1);
+            }
+            50% {
+                transform: scaleY(1.1);
+            }
+        }
+
+        /* Enhanced hover effects for language items */
+        .language-item:hover .progress::before {
+            opacity: 1;
+            transform: translateX(0) scale(1.05);
+        }
+
+        .language-item:hover .language-percentage {
+            animation: numberSpin 0.5s ease-out;
+        }
+
+        @keyframes numberSpin {
+            0% {
+                transform: rotateX(0deg);
+            }
+            100% {
+                transform: rotateX(360deg);
+            }
+        }
+
+        /* Add particle effects */
+        .language-item::before {
+            content: '';
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            filter: blur(1px);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .language-item:hover::before {
+            animation: particleBurst 1s ease-out;
+        }
+
+        @keyframes particleBurst {
+            0% {
+                opacity: 0;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.8;
+                transform: scale(15);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(30);
+            }
+        }
+
+        /* Add magnetic effect on hover */
+        .language-info {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .language-item:hover .language-info {
+            transform: translateX(5px);
+        }
+
+        /* Add glitch effect on hover */
+        .language-name:hover {
+            animation: glitchText 0.3s ease-in-out infinite;
+        }
+
+        @keyframes glitchText {
+            0% {
+                text-shadow: 2px 0 var(--accent-color), -2px 0 var(--secondary-color);
+                transform: translate(0);
+            }
+            25% {
+                text-shadow: -2px 0 var(--accent-color), 2px 0 var(--secondary-color);
+                transform: translate(1px);
+            }
+            50% {
+                text-shadow: 2px 0 var(--accent-color), -2px 0 var(--secondary-color);
+                transform: translate(-1px);
+            }
+            100% {
+                text-shadow: -2px 0 var(--accent-color), 2px 0 var(--secondary-color);
+                transform: translate(0);
+            }
+        }
+
+        /* Add these new animations for percentage values */
+        .language-percentage {
+            position: relative;
+            padding-right: 25px;  /* Make space for the line */
+        }
+
+        .language-percentage::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 2px;
+            border-radius: 1px;
+        }
+
+        /* English - 70% line */
+        .language-item:nth-child(1) .language-percentage::after {
+            background: linear-gradient(90deg, #4F46E5 70%, rgba(79, 70, 229, 0.3) 70%);
+            box-shadow: 0 0 8px rgba(79, 70, 229, 0.5);
+        }
+
+        /* Hindi - 80% line */
+        .language-item:nth-child(2) .language-percentage::after {
+            background: linear-gradient(90deg, #8B5CF6 80%, rgba(139, 92, 246, 0.3) 80%);
+            box-shadow: 0 0 8px rgba(139, 92, 246, 0.5);
+        }
+
+        /* Bengali - 100% line */
+        .language-item:nth-child(3) .language-percentage::after {
+            background: linear-gradient(90deg, #10B981 100%, rgba(16, 185, 129, 0.3) 100%);
+            box-shadow: 0 0 8px rgba(16, 185, 129, 0.5);
+        }
+
+        /* Unique progress bar styles */
+        .progress.english {
+            background: linear-gradient(90deg, var(--primary-color) 70%, rgba(255,255,255,0.1) 70%);
+            animation: fillEnglish 2s ease-out forwards,
+                       glowPulse70 2s infinite;
+        }
+
+        .progress.hindi {
+            background: linear-gradient(90deg, var(--accent-color) 80%, rgba(255,255,255,0.1) 80%);
+            animation: fillHindi 2.2s ease-out forwards,
+                       wavePulse80 3s infinite;
+        }
+
+        .progress.bengali {
+            background: var(--gradient-1);
+            animation: fillBengali 2.5s ease-out forwards,
+                       perfectShine 2s infinite;
+        }
+
+        /* Animation keyframes for percentages */
+        @keyframes pulse70 {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1) rotate(5deg); }
+        }
+
+        @keyframes glow80 {
+            0%, 100% { 
+                text-shadow: 0 0 5px var(--accent-color);
+                transform: translateY(0);
+            }
+            50% { 
+                text-shadow: 0 0 15px var(--accent-color);
+                transform: translateY(-3px);
+            }
+        }
+
+        @keyframes perfect100 {
+            0%, 100% {
+                transform: scale(1);
+                text-shadow: 0 0 10px var(--secondary-color);
+            }
+            50% {
+                transform: scale(1.2);
+                text-shadow: 0 0 20px var(--secondary-color),
+                             0 0 30px var(--accent-color);
+            }
+        }
+
+        /* Progress bar fill animations */
+        @keyframes fillEnglish {
+            0% { width: 0; }
+            70% { width: 65%; }
+            100% { width: 70%; }
+        }
+
+        @keyframes fillHindi {
+            0% { width: 0; }
+            70% { width: 75%; }
+            100% { width: 80%; }
+        }
+
+        @keyframes fillBengali {
+            0% { width: 0; }
+            70% { width: 95%; }
+            100% { width: 100%; }
+        }
+
+        /* Special effects for progress bars */
+        @keyframes glowPulse70 {
+            0%, 100% {
+                box-shadow: 0 0 5px var(--primary-color);
+            }
+            70% {
+                box-shadow: 0 0 15px var(--primary-color);
+            }
+        }
+
+        @keyframes wavePulse80 {
+            0%, 100% {
+                clip-path: polygon(0 0, 80% 0, 80% 100%, 0 100%);
+            }
+            50% {
+                clip-path: polygon(
+                    0 15%, 10% 10%, 20% 15%, 30% 10%,
+                    40% 15%, 50% 10%, 60% 15%, 70% 10%,
+                    80% 15%, 80% 100%, 0 100%
+                );
+            }
+        }
+
+        @keyframes perfectShine {
+            0% {
+                background-position: 200% 0;
+            }
+            100% {
+                background-position: -200% 0;
+            }
+        }
+
+        /* Add particle effects for each level */
+        .language-item::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .language-item:nth-child(1)::after {
+            background: var(--primary-color);
+            animation: particles70 3s infinite;
+        }
+
+        .language-item:nth-child(2)::after {
+            background: var(--accent-color);
+            animation: particles80 3s infinite;
+        }
+
+        .language-item:nth-child(3)::after {
+            background: var(--secondary-color);
+            animation: particles100 3s infinite;
+        }
+
+        @keyframes particles70 {
+            0% { transform: translate(0, 0); opacity: 0; }
+            50% { opacity: 0.7; }
+            100% { transform: translate(-30px, -30px); opacity: 0; }
+        }
+
+        @keyframes particles80 {
+            0% { transform: translate(0, 0); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translate(-40px, -40px); opacity: 0; }
+        }
+
+        @keyframes particles100 {
+            0% { transform: translate(0, 0); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translate(-50px, -50px); opacity: 0; }
+        }
+
+        /* Enhanced hover effects for each level */
+        .language-item:nth-child(1):hover .progress {
+            filter: brightness(1.2) contrast(1.1);
+            transform: scaleX(1.02);
+        }
+
+        .language-item:nth-child(2):hover .progress {
+            filter: brightness(1.3) contrast(1.2);
+            transform: scaleX(1.03);
+        }
+
+        .language-item:nth-child(3):hover .progress {
+            filter: brightness(1.4) contrast(1.3);
+            transform: scaleX(1.05);
+        }
+
+        /* Add 3D effect on hover */
+        .language-item:hover .language-percentage {
+            transform: perspective(500px) translateZ(20px);
+            text-shadow: 
+                0 0 10px var(--accent-color),
+                0 0 20px var(--secondary-color);
+        }
+
+        .success-icon {
+            display: none;
+            color: #10B981;
+        }
+
+        .cv-download-btn:active {
+            transform: scale(0.95);
+        }
+
+        .cv-download-btn .icon-wrapper {
+            position: relative;
+            display: inline-block;
+            margin-right: 8px;
+        }
+
+        /* Add these new animations for skill boxes */
+        .skill-box .skill-back ul li span {
+            position: relative;
+            display: inline-block;
+            transition: all 0.3s ease;
+            padding: 2px 8px;
+        }
+
+        /* Languages section animations */
+        .skill-box[data-skill="languages"] .skill-back ul li span {
+            animation: codePulse 2s infinite;
+        }
+
+        .skill-box[data-skill="languages"] .skill-back ul li span:hover {
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transform: translateX(10px) scale(1.1);
+        }
+
+        /* Frontend section animations */
+        .skill-box[data-skill="frontend"] .skill-back ul li span {
+            animation: fadeInOut 2s infinite;
+        }
+
+        .skill-box[data-skill="frontend"] .skill-back ul li span:hover {
+            text-shadow: 0 0 15px var(--secondary-color);
+            transform: translateY(-5px);
+            color: var(--secondary-color);
+        }
+
+        /* Backend section animations */
+        .skill-box[data-skill="backend"] .skill-back ul li span {
+            animation: serverPulse 2s infinite;
+        }
+
+        .skill-box[data-skill="backend"] .skill-back ul li span:hover {
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transform: scale(1.1);
+        }
+
+        /* Database section animations */
+        .skill-box[data-skill="database"] .skill-back ul li span {
+            animation: dbGlow 2s infinite;
+        }
+
+        .skill-box[data-skill="database"] .skill-back ul li span:hover {
+            color: var(--accent-color);
+            transform: rotate(5deg) scale(1.1);
+        }
+
+        /* Animation keyframes */
+        @keyframes codePulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% {
+                opacity: 0.8;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes serverPulse {
+            0%, 100% {
+                transform: translateX(0);
+            }
+            50% {
+                transform: translateX(5px);
+            }
+        }
+
+        @keyframes dbGlow {
+            0%, 100% {
+                text-shadow: 0 0 5px var(--accent-color);
+            }
+            50% {
+                text-shadow: 0 0 15px var(--accent-color);
+            }
+        }
+
+        /* Add particle effects on hover */
+        .skill-back ul li span::before {
+            content: '';
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .skill-back ul li span:hover::before {
+            animation: particleEffect 1s ease-out infinite;
+        }
+
+        @keyframes particleEffect {
+            0% {
+                transform: translate(0, 0);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-20px, -20px);
+                opacity: 0;
+            }
+        }
+
+        /* Add glitch effect on touch for mobile */
+        @media (hover: none) {
+            .skill-back ul li span:active {
+                animation: glitchText 0.3s ease-in-out;
+            }
+        }
+
+        @keyframes glitchText {
+            0% {
+                transform: translate(0);
+            }
+            25% {
+                transform: translate(-2px, 2px);
+            }
+            50% {
+                transform: translate(2px, -2px);
+            }
+            75% {
+                transform: translate(-2px, -2px);
+            }
+            100% {
+                transform: translate(0);
+            }
+        }
+
+        /* Enhanced animations for skill items text */
+        .skill-back ul li span {
+            position: relative;
+            display: inline-block;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Language skills text animations */
+        .skill-box[data-skill="languages"] .skill-back ul li span {
+            animation: floatText 3s ease-in-out infinite;
+        }
+
+        .skill-box[data-skill="languages"] .skill-back ul li span:hover {
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transform: translateX(10px) scale(1.1);
+            letter-spacing: 1px;
+        }
+
+        /* Frontend skills text animations */
+        .skill-box[data-skill="frontend"] .skill-back ul li span {
+            animation: glowPulse 2s infinite;
+        }
+
+        .skill-box[data-skill="frontend"] .skill-back ul li span:hover {
+            text-shadow: 0 0 15px var(--accent-color);
+            transform: translateY(-5px) rotate(2deg);
+            color: var(--secondary-color);
+        }
+
+        /* Backend skills text animations */
+        .skill-box[data-skill="backend"] .skill-back ul li span {
+            animation: slideWave 3s infinite;
+        }
+
+        .skill-box[data-skill="backend"] .skill-back ul li span:hover {
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transform: scale(1.1) skew(-5deg);
+        }
+
+        /* Database skills text animations */
+        .skill-box[data-skill="database"] .skill-back ul li span {
+            animation: pulseOpacity 2s infinite;
+        }
+
+        .skill-box[data-skill="database"] .skill-back ul li span:hover {
+            color: var(--accent-color);
+            transform: rotate(5deg) scale(1.1);
+            text-shadow: 2px 2px 4px rgba(139, 92, 246, 0.3);
+        }
+
+        /* New animation keyframes */
+        @keyframes floatText {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+
+        @keyframes glowPulse {
+            0%, 100% {
+                text-shadow: 0 0 2px var(--accent-color);
+            }
+            50% {
+                text-shadow: 0 0 8px var(--accent-color);
+            }
+        }
+
+        @keyframes slideWave {
+            0%, 100% {
+                transform: translateX(0);
+            }
+            50% {
+                transform: translateX(5px) translateY(-2px);
+            }
+        }
+
+        @keyframes pulseOpacity {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.8;
+                transform: scale(0.95);
+            }
+        }
+
+        /* Add magnetic effect on hover */
+        .skill-back ul li {
+            position: relative;
+            overflow: visible;
+        }
+
+        .skill-back ul li::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(139, 92, 246, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .skill-back ul li:hover::before {
+            opacity: 1;
+            animation: magneticPulse 1s infinite;
+        }
+
+        @keyframes magneticPulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Add 3D perspective effect */
+        .skill-back ul {
+            perspective: 1000px;
+        }
+
+        .skill-back ul li span:hover {
+            transform-style: preserve-3d;
+            animation: rotate3D 0.5s ease-out;
+        }
+
+        @keyframes rotate3D {
+            0% {
+                transform: rotateX(0) rotateY(0);
+            }
+            50% {
+                transform: rotateX(10deg) rotateY(10deg);
+            }
+            100% {
+                transform: rotateX(0) rotateY(0);
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
 <body>
-    <canvas id="test"></canvas>
-    <header>
+    <!-- Preloader with new animation -->
+    <div class="preloader">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <!-- Add this div right after your <body> tag -->
+    <div class="animated-background">
+        <div class="gradient-sphere"></div>
+        <div class="particles"></div>
+        <div class="grid-overlay"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-logo">
+            <div class="logo-container" style="max-width: 100%; padding: 0 20px;">
+                <div class="logo-wrapper">
+                    <div class="border-animation">
+                        <span class="logo-text">ABIR</span>
+                        <div class="border-top"></div>
+                        <div class="border-right"></div>
+                        <div class="border-bottom"></div>
+                        <div class="border-left"></div>
+                    </div>
+                </div>
+                <!-- Modern CV Download Button -->
+                <div class="cv-button-wrapper">
+                    <a href="assets/cv/abirsheet.pdf" download="Abir_Sheet_CV.pdf" class="cv-download-btn">
+                        <div class="button-content">
+                            <div class="icon-wrapper">
+                                <i class="fas fa-file-download download-icon"></i>
+                                <i class="fas fa-check success-icon"></i>
+                            </div>
+                            <span class="button-text">Download CV</span>
+                        </div>
+                        <div class="button-background"></div>
+                        <div class="button-border"></div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <button class="mobile-menu-btn">
+            <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-links">
+            <li><a href="#home" class="nav-link">Home</a></li>
+            <li><a href="#about" class="nav-link">About</a></li>
+            <li><a href="#skills" class="nav-link">Skills</a></li>
+            <li><a href="#experience" class="nav-link">Experience</a></li>
+            <li><a href="#projects" class="nav-link">Projects</a></li>
+            <li><a href="#contact" class="nav-link contact-link">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="home">
+        <div class="home-content" style="max-width: 100%; padding: 0 20px;">
+            <h1>Hi, I'm Abir Sheet</h1>
+            <div class="developer-title-container">
+                <h2 class="developer-title">
+                    <span class="title-word">Full</span>
+                    <span class="title-word">Stack</span>
+                    <span class="title-word">Developer</span>
+                </h2>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section with Animated Image and Title -->
+    <section id="about" class="about">
+        <div class="container" style="max-width: 100%; padding: 20px;">
+            <div class="about-content" style="display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center;">
+                <!-- Left Side - Profile Image -->
+                <div class="profile-image-container" style="flex: 1; min-width: 300px; max-width: 400px;">
+                    <div class="profile-frame">
+                        <div class="image-wrapper">
+                            <img src="abir.jpg" alt="Abir Santra" class="profile-image">
+                        </div>
+                        <div class="animation-elements">
+                            <div class="orbit-circle"></div>
+                            <div class="glow-effect"></div>
+                            <div class="corner-accent top-left"></div>
+                            <div class="corner-accent top-right"></div>
+                            <div class="corner-accent bottom-left"></div>
+                            <div class="corner-accent bottom-right"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Side - Animated Introduction -->
+                <div class="intro-content" style="flex: 1; min-width: 300px; max-width: 100%;">
+                    <div class="animated-title">
+                        <div class="title-wrapper">
+                            <div class="title-row">
+                                <span class="title-word">Full</span>
+                                <span class="title-word">Stack</span>
+                                <span class="title-word">Developer</span>
+                            </div>
+                        </div>
+                        <div class="title-decoration">
+                            <span class="code-element">&lt;code&gt;</span>
+                            <span class="code-dots">...</span>
+                            <span class="code-element">&lt;/code&gt;</span>
+                        </div>
+                    </div>
+                    <h2 class="text-capitalize white-text mb-40">
+                        A Passionate
+                        <span class="d-text">
+                            <span class="typed-text"></span>
+                            <span class="cursor">&nbsp;</span>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section with new layout -->
+    <section id="skills" class="skills">
+        <h2 class="section-title">Technical Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-box" data-skill="languages">
+                <div class="skill-content">
+                    <div class="skill-front">
+                <i class="fas fa-code"></i>
+                        <h3>Languages</h3>
+                    </div>
+                    <div class="skill-back">
+                        <ul>
+                            <li><span>Java</span></li>
+                            <li><span>JavaScript</span></li>
+                            <li><span>Python</span></li>
+                            <li><span>PHP</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="skill-box" data-skill="frontend">
+                <div class="skill-content">
+                    <div class="skill-front">
+                        <i class="fas fa-laptop-code"></i>
+                        <h3>Frontend</h3>
+                    </div>
+                    <div class="skill-back">
+                        <ul>
+                            <li><span>HTML</span></li>
+                            <li><span>CSS</span></li>
+                            <li><span>Bootstrap</span></li>
+                            <li><span>Tailwind</span></li>
+                            <li><span>React.js</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="skill-box" data-skill="backend">
+                <div class="skill-content">
+                    <div class="skill-front">
+                        <i class="fas fa-server"></i>
+                        <h3>Backend</h3>
+                    </div>
+                    <div class="skill-back">
+                        <ul>
+                            <li><span>Node.js</span></li>
+                            <li><span>Express</span></li>
+                            <li><span>Flask</span></li>
+                            <li><span>Redux</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="skill-box" data-skill="database">
+                <div class="skill-content">
+                    <div class="skill-front">
+                        <i class="fas fa-database"></i>
+                        <h3>Database</h3>
+                    </div>
+                    <div class="skill-back">
+                        <ul>
+                            <li><span>MySQL</span></li>
+                            <li><span>MongoDB</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Educational Journey Section -->
+    <section class="education-section">
+        <h2 class="section-title">Educational Journey</h2>
+        <div class="education-cards">
+            <!-- BCA Card -->
+            <div class="edu-card">
+                <div class="card-content">
+                    <h3 class="edu-title">BCA</h3>
+                    <p class="edu-school">Brainware University</p>
+                    <p class="edu-year">2021 - 2024</p>
+                    <p class="edu-grade">CGPA: 8.6</p>
+                </div>
+            </div>
+
+            <!-- Higher Secondary Card -->
+            <div class="edu-card">
+                <div class="card-content">
+                    <h3 class="edu-title">Higher Secondary</h3>
+                    <p class="edu-school">WBCHSE</p>
+                    <p class="edu-year">2019 - 2021</p>
+                    <p class="edu-grade">75.8%</p>
+                </div>
+            </div>
+
+            <!-- Secondary Card -->
+            <div class="edu-card">
+                <div class="card-content">
+                    <h3 class="edu-title">Secondary</h3>
+                    <p class="edu-school">WBBSE</p>
+                    <p class="edu-year">2019</p>
+                    <p class="edu-grade">82%</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="section">
+        <div class="section-header">
+            <h2 class="section-title" style="display:block; text-align: center;">Experience</h2>
+            <div class="section-line"></div>
+        </div>
         <div class="container">
-            <div class="pic">
-                <img id="mypic" src="abir.jpeg" alt="Profile Picture" class="profile-pic">
+            <div class="experience-grid">
+                <!-- Pinnacle Labs Internship -->
+                <div class="experience-card">
+                    <div class="exp-header">
+                        <div class="exp-company">
+                            <i class="fas fa-laptop-code"></i>
+                            <h3>Pinnacle Labs</h3>
+                        </div>
+                        <span class="exp-duration">Aug 2024 - Sep 2024</span>
+                    </div>
+                    <h4 class="exp-position">Web Development Virtual Internship</h4>
+                    <div class="exp-content">
+                        <div class="exp-projects">
+                            <h5>Project Details:</h5>
+                            <ul class="exp-details">
+                                <li>Personal Portfolio Website</li>
+                                <li>Responsive Calculator Application</li>
+                            </ul>
+                        </div>
+                        <div class="tech-stack">
+                            <span>JavaScript</span>
+                            <span>React</span>
+                            <span>Bootstrap</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Webguru Infosystem Training -->
+                <div class="experience-card">
+                    <div class="exp-header">
+                        <div class="exp-company">
+                            <i class="fas fa-code"></i>
+                            <h3>Webguru Infosystem</h3>
+                        </div>
+                            <span class="exp-duration">Jul 2024 - Sep 2024</span>
+                        </div>
+                        <h4 class="exp-position">Industrial Training (MEAN Stack)</h4>
+                        <div class="exp-content">
+                            <div class="exp-projects">
+                                <h5>Project Details:</h5>
+                                <ul class="exp-details">
+                                    <li>Restaurant Suggestion Application</li>
+                                    <li>Location and Food Dish Based Recommendations</li>
+                </ul>
+                            </div>
+                            <div class="tech-stack">
+                                <span>TypeScript</span>
+                                <span>Angular</span>
+                                <span>Express</span>
+                                <span>MongoDB</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <h1>Abir Sheet</h1>
-            <div>
-                <p>kajipara Road, Barasat, North 24 Parganas, Kolkata 124 | +91 7363923402 | <a
-                        href="mailto:abirsheet2@gmail.com">abirsheet2@gmail.com</a></p>
-                <p><a href="https://github.com/AbirSheet2004" target="_blank">GitHub <lord-icon
-                    src="https://cdn.lordicon.com/uvqdhrsk.json"
-                    trigger="loop"
-                    delay="1500"
-                    stroke="bold"
-                    state="in-reveal"
-                    colors="primary:#ffffff,secondary:#ffffff"
-                    style="width:19px;height:18px">
-                </lord-icon></a>| <a
-                        href="https://www.linkedin.com/in/abirsheet2004/" target="_blank">LinkedIn   <lord-icon
-                        src="https://cdn.lordicon.com/mdyiqybm.json"
-                        trigger="loop"
-                        
-                        state="hover-draw"
-                        colors="primary:#ffffff,secondary:#ffffff"
-                        style="width:19px;height:18px">
-                    </lord-icon>&nbsp;</a>|&nbsp;
-                      
-                </p>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects-section">
+        <h2 class="section-title">Projects</h2>
+        <div class="project-cards">
+            <!-- Chat App Project -->
+            <div class="project-box">
+                <div class="card-content">
+                    <h3 class="project-title">Chat us</h3>
+                    <p class="project-type">MERN Stack Application</p>
+                    <div class="project-details">
+                        <p class="project-desc">This application provides use a Secure massaging platform and its work like WhatsApp.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">JavaScript</span>
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">Tailwind</span>
+                            <span class="tech-tag">Node</span>
+                            <span class="tech-tag">MongoDB</span>
+                            <span class="tech-tag">Express</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-    </header>
-    <main>
-        <section id="objective">
-            <h2>Career Objective</h2>
-            <p>To obtain an entry-level position in IT sector, where I can apply my technical skills and knowledge to
-                contribute to the growth of the organization. I aspire to learn and grow my skills while working on
-                challenging projects and collaborating with a team of professionals in a dynamic and innovative
-                environment. My goal is to establish myself as a competent IT professional and develop a successful
-                career in the field of technology and innovation.</p>
-        </section>
-        <section id="education">
-            <h2>Educational Qualification</h2>
-            <ul>
-                <li>BCA, Brainware University, 2025, 75.83%</li>
-                <li>Higher Secondary, WBCHSE, 2022, 89.60%</li>
-                <li>Secondary, WBBSE, 2020, 74.20%</li>
-            </ul>
-        </section>
-        <section id="skills">
-            <h2>Technical Knowledge and Skills</h2>
-            <ul>
-                <li>General programming concepts and Object-Oriented Programming</li>
-                <li>Programming languages: Java, Python</li>
-                <li>Web development technologies: HTML, CSS, JavaScript</li>
-                <li>Eagerness to learn and adapt to new technologies</li>
-                <li>Excellent Written and Verbal Communication</li>
-            </ul>
-        </section>
-        <section id="tools">
-            <h2>Tools and Software</h2>
-            <ul>
-                <li>Git, GitHub, LinkedIn</li>
-                <li>Microsoft VS Code, VMWare</li>
-                <li>Python IDE, Google Colab</li>
-                <li>Oracle 10g Express</li>
-                <li>Windows</li>
-            </ul>
-        </section>
-        <section id="achievements">
-            <h2>Awards & Achievements</h2>
-            <ul>
-                <li>3 times school cricket championship winner as a captain</li>
-                <li>Sonata watch and Certificate in 2022 for achieving >85% marks</li>
-                <li>More than 10 Webinar participation certificates</li>
-                <li>2nd position in Intel oneAPI Machine Learning Hackathon 2023 at Brainware University</li>
-                <li>10+ certificates on different courses done on Paytm, java, soft skill</li>
-            </ul>
-        </section>
-        <section id="interests">
-            <h2>Interests</h2>
-            <ul>
-                <li>Reading books and articles, trading</li>
-                <li>Travelling, Eating, Photography, Cooking</li>
-                <li>Social works, helping the needy people</li>
-                <li>Teaching, Learning new technical things</li>
-            </ul>
-        </section>
-        <section id="strengths">
-            <h2>Strengths</h2>
-            <ul>
-                <li>Team management, Leadership, Risk Management</li>
-                <li>Problem solving, Critical thinking</li>
-                <li>Positive attitude, Conflict Resolution, Detail-oriented</li>
-                <li>Punctuality, Proactive</li>
-                <li>Decision making</li>
-                <li>Honesty and dedication</li>
-                <li>Self-Motivation</li>
-                <li>Strategic plan maker, Quality Assurance</li>
-            </ul>
-        </section>
-        <section id="languages">
-            <h2>Language Known</h2>
-            <ul>
-                <li>Bengali: Reading, Writing, Speaking</li>
-                <li>English: Reading, Writing, Speaking</li>
-                <li>Hindi: Reading, Speaking</li>
-            </ul>
-        </section>
-        <section id="personal">
-            <h2>Personal Details</h2>
-            <ul>
-                <li>Date of Birth: 11 March 2004</li>
-                <li>Father’s Name: Mr. Srikanta Sheet</li>
-                <li>Mother’s Name: Mrs. Mallika Sheet</li>
-                <li>Marital Status: Unmarried</li>
-                <li>Sex: Male</li>
-                <li>Religion: Hinduism</li>
-                <li>Nationality: Indian</li>
-                <li>Permanent Address: Arui, Saknara, Purba Burdwan, West Bengal, 713421</li>
-            </ul>
-        </section>
-    </main>
-    <footer>
-        <p><b>© 2024 Abir Sheet. All rights reserved.</b></p>
-    </footer>
+
+            <!-- Student Portal Project -->
+            <div class="project-box">
+                <div class="card-content">
+                    <h3 class="project-title">Student Portal</h3>
+                    <p class="project-type">JavaScript Application</p>
+                    <div class="project-details">
+                        <p class="project-desc">This application provides a secure straight forward registration and login system.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">JavaScript</span>
+                            <span class="tech-tag">Flask</span>
+                            <span class="tech-tag">SQL</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Restaurant Project -->
+            <div class="project-box">
+                <div class="card-content">
+                    <h3 class="project-title">Restaurant Food Booking</h3>
+                    <p class="project-type">JavaScript Application</p>
+                    <div class="project-details">
+                        <p class="project-desc">Using this application user can order food in some restaurant.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">HTML</span>
+                            <span class="tech-tag">CSS</span>
+                            <span class="tech-tag">JavaScript</span>
+                            <span class="tech-tag">SQL</span>
+                            <span class="tech-tag">Flask</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Add this section after Projects section and before Achievement section -->
+    <section class="language-section">
+        <h2 class="section-title">Languages</h2>
+        <div class="language-container">
+            <!-- English -->
+            <div class="language-item">
+                <div class="language-info">
+                    <span class="language-name">English</span>
+                    <span class="language-percentage">70%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress english" style="width: 70%"></div>
+                </div>
+            </div>
+
+            <!-- Hindi -->
+            <div class="language-item">
+                <div class="language-info">
+                    <span class="language-name">Hindi</span>
+                    <span class="language-percentage">80%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress hindi" style="width: 80%"></div>
+                </div>
+            </div>
+
+            <!-- Bengali -->
+            <div class="language-item">
+                <div class="language-info">
+                    <span class="language-name">Bengali</span>
+                    <span class="language-percentage">100%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress bengali" style="width: 100%"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Achievement Section -->
+    <section id="achievements" class="section">
+        <div class="section-header">
+            <h2 class="section-title" style="display:block; text-align: center;">Achievement</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="container">
+            <div class="achievement-container">
+                <!-- Intel oneAPI Hackathon Achievement -->
+                <div class="achievement-card">
+                    <div class="achievement-badge">
+                        <div class="badge-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="badge-ribbon">2nd Position</div>
+                    </div>
+                    
+                    <div class="achievement-content">
+                        <div class="achievement-title">
+                            <h3>Intel oneAPI Machine Learning Hackathon</h3>
+                            <span class="achievement-venue">Brainware University</span>
+                        </div>
+                        <div class="achievement-details">
+                            <div class="achievement-tag">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span>2023</span>
+                            </div>
+                            <div class="achievement-tag">
+                                <i class="fas fa-microchip"></i>
+                                <span>Machine Learning</span>
+                            </div>
+                            <div class="achievement-tag">
+                                <i class="fas fa-code"></i>
+                                <span>oneAPI</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Strength Section -->
+    <section class="strength-section">
+        <h2 class="section-title">Strengths</h2>
+        <div class="strength-cards">
+            <!-- Communication Strength -->
+            <div class="strength-box">
+                <div class="card-content">
+                    <i class="fas fa-comments strength-icon"></i>
+                    <h3 class="strength-title">Communication</h3>
+                    <p class="strength-desc">Strong interpersonal and verbal communication skills</p>
+                </div>
+            </div>
+
+            <!-- Time Management Strength -->
+            <div class="strength-box">
+                <div class="card-content">
+                    <i class="fas fa-clock strength-icon"></i>
+                    <h3 class="strength-title">Time Management</h3>
+                    <p class="strength-desc">Efficient planning and task prioritization abilities</p>
+                </div>
+            </div>
+
+            <!-- Team Management Strength -->
+            <div class="strength-box">
+                <div class="card-content">
+                    <i class="fas fa-users strength-icon"></i>
+                    <h3 class="strength-title">Team Management</h3>
+                    <p class="strength-desc">Effective leadership and collaboration skills</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Replace both the contact section and footer with this unified section -->
+    <section id="contact" class="contact-section">
+        <div class="contact-wrapper">
+            <!-- Left Side - Let's Connect -->
+            <div class="contact-cards-container">
+            <h2 class="section-title">Let's Connect</h2>
+                <div class="contact-grid">
+                    <!-- First row: Email and Phone -->
+                    <div class="contact-row">
+                    <a href="mailto:your.email@example.com" class="contact-card">
+                        <i class="fas fa-envelope"></i>
+                        <span class="contact-text">Email</span>
+                    </a>
+                    <a href="tel:+1234567890" class="contact-card">
+                        <i class="fas fa-phone"></i>
+                        <span class="contact-text">Phone</span>
+                    </a>
+                    </div>
+
+                    <!-- Second row: LinkedIn and GitHub -->
+                    <div class="contact-row">
+                    <a href="#" class="contact-card">
+                        <i class="fab fa-linkedin-in"></i>
+                        <span class="contact-text">LinkedIn</span>
+                    </a>
+                    <a href="#" class="contact-card">
+                        <i class="fab fa-github"></i>
+                        <span class="contact-text">GitHub</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+            <!-- Right Side - Contact Form -->
+            <div class="contact-form-container">
+                <h2 class="section-title">Get In Touch</h2>
+                <form class="animated-form">
+                    <div class="form-group">
+                        <input type="text" id="name" required>
+                        <label for="name">Your Name</label>
+                        <span class="focus-border"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="email" id="email" required>
+                        <label for="email">Your Email</label>
+                        <span class="focus-border"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="tel" id="phone" required>
+                        <label for="phone">Phone Number</label>
+                        <span class="focus-border"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="text" id="subject" required>
+                        <label for="subject">Subject</label>
+                        <span class="focus-border"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <textarea id="message" required></textarea>
+                        <label for="message">Your Message</label>
+                        <span class="focus-border"></span>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">
+                        <span class="btn-text">Send Message</span>
+                        <span class="btn-icon"><i class="fas fa-paper-plane"></i></span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- JavaScript -->
     <script src="script.js"></script>
-    <script src="https://cdn.lordicon.com/lordicon.js"></script>
+    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+    <script>
+        // Initialize Typed.js
+        let typed = new Typed('.typed-text', {
+            strings: ['Software Engineer', 'Web Designer', 'Freelancer'],
+            typeSpeed: 50,
+            backSpeed: 30,
+            loop: true,
+            backDelay: 1500
+        });
+    </script>
+    <script>
+        document.querySelector('.animated-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Add your form submission logic here
+            
+            // Animation for button
+            const btn = e.target.querySelector('.submit-btn');
+            btn.innerHTML = '<span class="btn-text">Sent Successfully!</span><span class="btn-icon"><i class="fas fa-check"></i></span>';
+            btn.style.background = 'linear-gradient(45deg, #10B981, #4F46E5)';
+            background-size: 50px 50px;
+            background-position: center;
+            opacity: 0.1;
+            animation: gridMove 20s linear infinite;
+        }
+            
+            // Reset form after delay
+            setTimeout(() => {
+                e.target.reset();
+                btn.innerHTML = '<span class="btn-text">Send Message</span><span class="btn-icon"><i class="fas fa-paper-plane"></i></span>';
+                btn.style.background = '';
+            }, 3000);
+        });
+    </script>
+    <script>
+        // Hamburger Menu functionality
+        const menuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+
+        menuBtn.addEventListener('click', () => {
+            menuBtn.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Close menu when clicking a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                menuBtn.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!menuBtn.contains(e.target) && !navLinks.contains(e.target)) {
+                menuBtn.classList.remove('active');
+                navLinks.classList.remove('active');
+            }
+        });
+    </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get all navigation links
+        const navLinks = document.querySelectorAll('.nav-link');
+        const contactSection = document.querySelector('.contact-section');
+
+        // Add click event listeners to all nav links
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                // If it's the contact link
+                if (this.classList.contains('contact-link')) {
+                    e.preventDefault();
+                    contactSection.scrollIntoView({ behavior: 'smooth' });
+                    
+                    // Add highlight effect
+                    contactSection.classList.add('highlight');
+                    setTimeout(() => {
+                        contactSection.classList.remove('highlight');
+                    }, 1000);
+                }
+            });
+        });
+
+        // Add scroll event listener to highlight contact link when reaching contact section
+        window.addEventListener('scroll', function() {
+            const contactRect = contactSection.getBoundingClientRect();
+            const contactLink = document.querySelector('.contact-link');
+            
+            if (contactRect.top <= window.innerHeight * 0.5 && contactRect.bottom >= window.innerHeight * 0.5) {
+                contactLink.classList.add('active');
+            } else {
+                contactLink.classList.remove('active');
+            }
+        });
+    });
+    </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        function highlightNavigation() {
+            let scrollY = window.pageYOffset;
+
+            sections.forEach(section => {
+                const sectionHeight = section.offsetHeight;
+                const sectionTop = section.offsetTop - 100;
+                const sectionId = section.getAttribute('id');
+
+                if(scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if(link.getAttribute('href') === '#' + sectionId) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }
+
+        window.addEventListener('scroll', highlightNavigation);
+
+        // Add hover sound effect (optional)
+        navLinks.forEach(link => {
+            link.addEventListener('mouseenter', () => {
+                if (window.AudioContext || window.webkitAudioContext) {
+                    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                    const oscillator = audioCtx.createOscillator();
+                    const gainNode = audioCtx.createGain();
+                    
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioCtx.destination);
+                    
+                    oscillator.type = 'sine';
+                    oscillator.frequency.setValueAtTime(2000, audioCtx.currentTime);
+                    gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                    
+                    oscillator.start();
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+                    oscillator.stop(audioCtx.currentTime + 0.1);
+                }
+            });
+        });
+    });
+    </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const languageItems = document.querySelectorAll('.language-item');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, { threshold: 0.5 });
+
+        languageItems.forEach(item => {
+            observer.observe(item);
+        });
+    });
+    </script>
+
+    <div class="dynamic-background">
+        <div class="background-grid"></div>
+        <div class="background-gradient"></div>
+
+        .background-gradient {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        <div class="background-particles">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            background: radial-gradient(
+            <div class="particle"></div>
+            <div class="particle"></div>
+                circle at 50% 50%,
+                rgba(79, 70, 229, 0.15) 0%,
+        </div>
+        <div class="glow-line"></div>
+        <div class="glow-line"></div>
+                rgba(139, 92, 246, 0.1) 25%,
+        <div class="glow-line"></div>
+        <div class="glow-line"></div>
+                rgba(16, 185, 129, 0.05) 50%,
+    </div>
 </body>
 
 </html>
